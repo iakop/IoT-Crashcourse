@@ -1,0 +1,280 @@
+% !TeX TS-program = xelatex -synctex=1 -interaction=nonstopmode -shell-escape -output-directory=build %.tex
+%% Packages
+
+% Code
+\usepackage{fontspec}					%For setting own fonts
+%\RequirePackage{amsmath}
+%\usepackage[MnSymbol]{fontspec}		%For setting math fonts
+\usepackage{listings}					%For code listings
+\usepackage{multicol}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx,colortbl}
+\usepackage{mdframed}
+% Hyperref and URLS
+\usepackage{url}						%For URLs
+\usepackage{hyperref}					%For hyperlinks
+% SVG
+\usepackage[inkscapearea=page]{svg}	%For printing SVG files
+\usepackage{relsize}					%For adjusting size of SVG text
+% Background
+\usepackage{tikz}
+%Figure names
+\usepackage{caption}
+\usepackage{subcaption}
+% Line spacing
+\usepackage{setspace}
+% Etc
+\usepackage{relsize}
+\usepackage{xstring}
+
+%% Custom packages
+\usepackage{include/arduino_language}	%Defines the coloration of Arduino code in C++
+
+%%%%% General formatting %%%%%
+
+%% Beamer colors:
+\definecolor{fgcolor}{HTML}{666666}
+\definecolor{bgcolor}{HTML}{1a1a1a}
+\definecolor{textcolor}{HTML}{FFFFFF}
+
+%% Fonts
+\newfontfamily\codefont[NFSSFamily=myverbatimfont]{DejaVu Sans Mono}
+%\newfontfamily\emojifont[]{Twemoji}
+\newfontfamily\defaultfont[NFSSFamily=defaultfont]{DejaVu Sans}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\setmonofont[StylisticSet={1,3}]{DejaVu Sans Mono}
+
+%% SVG settings
+%Search path
+\svgpath{{assets/svg}}
+%Remove LaTeX Support
+\svgsetup{inkscapelatex=false}
+
+%% Code listings
+%% Colors
+\definecolor{backcolour}{HTML}{F7F9F9}	% Code background color
+\definecolor{inactive}{HTML}{A7ABAB}	% Inactive code color
+\definecolor{myblue}{HTML}{4356A2} 
+\definecolor{hyperlink}{HTML}{CA835D}
+
+%% Hyperlink format
+\renewcommand\UrlFont{\color{hyperlink}\tt}
+\hypersetup{
+	urlbordercolor=hyperlink,
+	pdfborderstyle={/S/U/W 1}
+}
+
+%Listing formatting of keywords inline
+\lstMakeShortInline{|}
+\lstset{
+	%inputencoding=utf8,
+	language=Arduino,
+	showstringspaces=false,
+	basicstyle={\codefont\tiny\color{black}},
+	numberstyle={\codefont\tiny\color{textcolor}},
+	numbers=left,
+	numbersep=8pt,
+	frame=none,
+	tabsize=4,
+	keepspaces=true,
+	extendedchars=true,
+	literate={æ}{{\ae}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Æ}{{\AE}}1 {Ø}{{\O}}1 {Å}{{\r A}}1,
+	escapeinside={\%*}{*)},
+	breaklines=true,
+	moredelim=[is][\color{inactive}]{@}{@},
+}
+
+%% Text alignment
+\raggedright
+
+%% Line settings:
+\renewcommand{\baselinestretch}{1.2}
+
+%% Tcolorboxes:
+\newtcolorbox{textBox}{fit, fit algorithm=areasize, height=0.8\textheight, width=\textwidth, colback=black, opacityback=0.25, colframe=black, colback=black, opacityframe=0.25, boxrule=0pt, boxsep=5pt, left=5pt, right=5pt, top=5pt, bottom=5pt, arc=5pt, halign=left, valign=center, coltext=textcolor}
+\newtcolorbox{frameText}{colback=black, opacityback=0.25, colframe=black, opacityframe=0.25, boxrule=0pt, left=5pt, right=5pt, top=8pt, bottom=5pt, arc=5pt, halign=center, valign=center, coltext=textcolor, hbox, center, before upper*=\begin{tabular}{c}, after upper*=\end{tabular}}
+\newtcolorbox{captionBox}{fit, fit algorithm=areasize, height=0.15\textheight, width=\textwidth, colback=black, opacityback=0.25, colframe=black, colback=black, opacityframe=0.25, boxrule=0pt, boxsep=5pt, left=5pt, right=5pt, top=5pt, bottom=5pt, arc=5pt, halign=left, valign=center, coltext=textcolor}
+\newtcolorbox{captionBoxMinMargin}{fit, fit algorithm=areasize, height=0.15\textheight, width=\textwidth, colback=black, opacityback=0.25, colframe=black, colback=black, opacityframe=0.25, boxrule=0pt, boxsep=3pt, left=3pt, right=3pt, top=3pt, bottom=3pt, arc=5pt, halign=left, valign=center, coltext=textcolor}
+\newtcolorbox{captionBoxSmall}{fit, fit algorithm=areasize, height=0.1\textheight, width=\textwidth, colback=black, opacityback=0.25, colframe=black, colback=black, opacityframe=0.25, boxrule=0pt, boxsep=2pt, left=2pt, right=2pt, top=2pt, bottom=2pt, arc=5pt, halign=left, valign=center, coltext=textcolor}
+\newtcolorbox{fitBox}{fit, fit algorithm=areasize, height=0.8\textheight, width=\textwidth, opacityback=0, opacityframe=0, boxrule=0pt, boxsep=0pt, left=0pt, right=0pt, top=0pt, bottom=0pt, arc=0pt, halign=left, valign=center, coltext=textcolor}
+
+\newtcolorbox{codeBox}{colback=white, colframe=black, opacityframe=1, opacityback=1, boxrule=0pt, boxsep=3pt, left=3pt, right=3pt, top=0pt, bottom=0pt, arc=5pt}
+\mdfsetup{framemethod=TikZ,middlelinewidth=0pt,backgroundcolor=backcolour,roundcorner=5pt,innerleftmargin=5pt,innerrightmargin=5pt,innertopmargin=0pt,innerbottommargin=0pt,frametitleaboveskip=0pt,frametitlebelowskip=0pt,nobreak=false}
+
+\DeclareCaptionFormat{tcbcaption}{%
+  \begin{captionBox}
+  #1#2#3
+  \end{captionBox}%
+}
+\DeclareCaptionFormat{tcbcaptionminmargin}{%
+  \begin{captionBoxMinMargin}
+  #1#2#3
+  \end{captionBoxMinMargin}%
+}
+\DeclareCaptionFormat{tcbcaptionsmall}{%
+  \begin{captionBoxSmall}
+  #1#2#3
+  \end{captionBoxSmall}%
+}
+\captionsetup{format=tcbcaption}
+\setkeys{Gin}{width=0.8\textwidth}
+
+\newcommand{\captionbreak}{\\\hspace{\textwidth}\\}
+\newcommand{\captionline}{\hspace{\textwidth}\\}
+
+\newenvironment{exampleEnv}%
+{% This is the begin code
+\begin{it}\begin{captionBox}%
+}
+{% This is the end code
+\end{captionBox}\end{it}}
+
+
+%%%%% Beamer shit %%%%%
+
+%% Beamer style
+\setbeamercolor{palette primary}{fg=fgcolor}
+\setbeamercolor{palette secondary}{fg=fgcolor}
+\setbeamertemplate{sections/subsections in toc}[circle]
+\setbeamercolor{structure}{fg=textcolor}
+\setbeamercolor{title in head/foot}{fg=textcolor}
+\setbeamercolor{author in head/foot}{fg=textcolor}
+\setbeamercolor{date in head/foot}{fg=textcolor}
+\setbeamercolor{normal text}{fg=textcolor}
+\setbeamercolor{frametitle}{fg=textcolor}
+\setbeamercolor{titlelike}{fg=textcolor}
+\setbeamercolor{title}{fg=textcolor}
+\setbeamercolor{body}{fg=textcolor}
+\setbeamercolor{normal text}{fg=textcolor}
+\setbeamercolor{alerted text}{fg=textcolor}
+\setbeamercolor{example text}{fg=textcolor}
+\setbeamercolor{palette primary}{fg=textcolor}
+\setbeamercolor{palette secondary}{fg=textcolor}
+\setbeamercolor{palette tertiary}{fg=textcolor}
+\setbeamercolor{palette quaternary}{fg=textcolor}
+
+\setbeamercolor{itemize item}{fg=fgcolor}
+\setbeamercolor{itemize subitem}{fg=fgcolor}
+\setbeamercolor{itemize subsubitem}{fg=fgcolor}
+
+%% Beamer template
+\setbeamertemplate{sections/subsections in toc}[sections numbered]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{qed symbol}{}
+\setcounter{tocdepth}{2}
+\setbeamertemplate{caption}[numbered]
+
+%% Font stuff
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{structure}{series=\bfseries}
+\setbeamerfont{title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{footline}{size*={5}{\z@}}
+\setbeamerfont{normal text}{size=\small}
+
+%% Title formatting
+\setbeamertemplate{frametitle}[default][center]
+
+%% Background settings
+\newcommand\bgGradient[2][]{%
+	\begin{tikzpicture}[remember picture,overlay, opacity=#2]
+	\shade[top color=fgcolor,bottom color=bgcolor]
+			(current page.north west)
+			rectangle
+			(current page.south east);
+	\end{tikzpicture}%
+}
+
+\newcommand\bgPic[3][]{%
+	\filename@parse{#3}
+	\typeout{\filename@ext}
+	\IfSubStr{\filename@ext}{svg}%
+	{\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includesvg[height=0.8\paperheight]{#3}};}					{\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[height=0.8\paperheight, keepaspectratio=true]{#3}};}
+\bgGradient{#2}
+}
+
+%\newcommand\bgPic[3][]{%
+%	\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includesvg[height=0.8\paperheight]{#3}};					
+%	\bgGradient{#2}
+%}
+
+\setbeamertemplate{background canvas}{%
+	\bgGradient{1}%    
+}
+
+% \roundedGfx{width}{file}
+\newcommand\roundedGfx[3][]{%
+\begin{tikzpicture}
+   \node[inner sep=0pt,,outer sep=0pt,clip,rounded corners=5pt] (pict) at (0,0) {\includegraphics[width=#2]{#3}};
+\end{tikzpicture}
+}
+
+% For SVG background
+
+
+\setbeamertemplate{itemize item}{•}
+\setbeamertemplate{itemize subitem}{•}
+\setbeamertemplate{itemize subsubitem}{•}
+
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+    \hspace*{2ex}\fontsize{1pt}{2pt}\inserttitle
+  \end{beamercolorbox}%  
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \fontsize{1pt}{2pt}© \insertinstitute
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \fontsize{1pt}{2pt}\insertpagenumber/\insertpresentationendpage\hspace*{2ex}
+  \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\setbeamertemplate{title page}{
+	\bgPic{0.7}{assets/svg/ESP32-DevkitC-v4.svg}
+	\topskip0pt
+	\vspace*{\fill}
+	\begin{center}
+		\begin{frameText}
+			\Large\bfseries\inserttitle\\
+			\small\\
+			\small\insertsubtitle
+		\end{frameText}
+	\end{center}
+	\vspace*{\fill}
+	\begin{center}
+		\begin{frameText}
+			%\begin{center}
+				\tiny\insertauthor\newline\newline\newline\\
+				\tiny\insertdate
+			%\end{center}
+		\end{frameText}
+	\end{center}
+\vspace*{\fill}
+}
+
+%\let\tempone\itemize
+%\let\temptwo\enditemize
+%\renewenvironment{itemize}{\tempone\addtolength{\itemsep}{0.25\baselineskip}}{\temptwo}
+
+\newcommand{\sectiontitle}[2]{%
+	\bgPic{0.7}{#1}
+	\begin{center}
+		\begin{frameText}
+			%\begin{center}
+				{\color{textcolor}\Large\bfseries#2}
+			%\end{center}
+		\end{frameText}
+	\end{center}
+}
+
+\newcommand\tthigh[1]{%
+	{\texttt{\color{arduinoBlue}#1}}
+}

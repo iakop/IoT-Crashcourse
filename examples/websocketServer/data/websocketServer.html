@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Websocket Server</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<h1>Websocket Server</h1>
+	<div><h3>LED</h3>
+	<input type="range" min="0" max="255" value="0" class="slider" id="ledSlider"></br>
+	Level: <span id="ledLevel">0</span>
+	</div>
+	</br>
+
+	<div><h3>DHT<h3>
+	<meter id="dhtTempMeter" value="0" min="0" max="50" class="meter"></meter></br>
+	Temperature: <span id="dhtTemp">0</span>&#x2103</br><!-- UTF-8 code for deg Celsius symbol!-->
+	<meter id="dhtHumMeter" value="0" min="0" max="100" class="meter"></meter></br>
+	Humidity: <span id="dhtHum">0</span>%</br></th>
+	</div>
+
+	<script src="websocketClient.js"></script>
+</body>
+</html>
