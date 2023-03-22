@@ -125,8 +125,15 @@
 			\end{itemize}
 			\item \url{https://www.arduino.cc/en/software\#legacy-ide-18x}
 			\begin{itemize}
-				\item Download af Arduino IDE 1.8.X
-				\item Windows version at downloade: \tthigh{Win 7 or newer}
+				\item Download af Arduino IDE \tthigh{1.8.X}
+				\begin{itemize}
+					\item \ttwarn{IKKE 2.X.X}
+				\end{itemize}
+				\item Windows version at downloade: \tthigh{Win 7 or newer} 
+				\begin{itemize}
+					\item \ttwarn{IKKE Windows app Win 8.1 or 10}
+					\item Dvs. \ttwarn{undgå} dette logo: (\includegraphics[height=8pt, keepaspectratio=true]{assets/pictures/windows-get.png})
+				\end{itemize}
 				\item Mac OS X version at downloade: \tthigh{10.10 or newer} 
 				\item Linux version at downloade: \tthigh{64 bits/Det ved du selv}\color{arduinoBlue}😜%\emojifont{😜}
 			\end{itemize}
@@ -134,41 +141,135 @@
 			\begin{itemize}
 				\item Reference for keywords i Arduino
 			\end{itemize}
+			\item \url{http://mqtt-explorer.com/}
+			\begin{itemize}
+				\item MQTT client til at udforske topics på en broker
+			\end{itemize}
+			\item \url{https://nodered.org/}
+			\begin{itemize}
+				\item Editorbaseret løsning til flowbaseret IoT programmering
+			\end{itemize}
 		\end{itemize}
-	\end{textBox}
-\end{frame}
-
-\section{Dagens program}
-\begin{frame}{Dagens program}
-	\begin{textBox}
-		\textbf{16:00 - 16:30:} Setup af ESP32 på Arduino IDE
-		\begin{itemize}
-			\item Board Definitions
-			\item Libraries og Tools
-		\end{itemize}
-		\textbf{16:30 - 17:30:} Byg en simpel ESP32 webserver
-		\begin{itemize}
-			\item IoT basics
-			\item ESP32 Webserver m. HTTP kontrol gennem webside og curl
-		\end{itemize}
-		\textbf{17:30 - 18:00:} Forplejning - pause\\
-		\textbf{18:00 - 18:30:} Websockets på ESP32
-		\begin{itemize}
-			\item Udvid server med javascript og websocket forbindelse
-			\item Tilføj Websocket forbindelse på ESP32
-		\end{itemize}
-		\textbf{18:00 - 18:30:} MQTT på ESP32
-		\begin{itemize}
-			\item Demo MQTT broker med flere ESP32 klienter
-			\item Byg MQTT klienter til at kommunikere på fælles broker
-		\end{itemize}
-		\textbf{19:45 - 20:00:} Opsamling, evaluering, og afslutning
 	\end{textBox}
 \end{frame}
 
 \section{Setup af ESP32 på Arduino IDE}
 \begin{frame}
 	\sectiontitle{assets/pictures/arduino-ide.png}{\insertsectionhead}
+\end{frame}
+
+\subsection{Setup Arduino IDE}
+\begin{frame}{Setup Arduino IDE}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/arduino-versions.png}
+  			\caption{\tthigh{Arduino Legacy IDE (1.8.X)}, versionen der bliver benyttet i denne workshop. Versionerne highlighted er de understøttede versioner}
+  			\label{fig:arduino-versions}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Download Arduino IDE \tthigh{1.8.X} fra linket:
+				\begin{itemize}
+					 \item \small\url{https://www.arduino.cc/en/software\#legacy-ide-18x}
+				\end{itemize}
+				\begin{itemize}
+					\item \ttwarn{IKKE 2.X.X}
+					\item Windows:
+					\begin{itemize}
+						\item  \tthigh{Win 7 or newer} 
+						\item \ttwarn{IKKE Windows app Win 8.1 or 10}
+						\item Dvs. \ttwarn{undgå} dette logo: (\includegraphics[height=8pt, keepaspectratio=true]{assets/pictures/windows-get.png})
+					\end{itemize}
+					\item Mac OS X:
+					\begin{itemize}
+						\item \tthigh{10.10 or newer}
+					\end{itemize}
+					\item Linux:
+					\begin{itemize}
+						\item \tthigh{64 bits/Det ved du selv}\color{arduinoBlue}😜%\emojifont{😜}
+					\end{itemize}
+				\end{itemize}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup Arduino IDE}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Der vil komme en donationsside
+				\item Bare vælg "\tthigh{Just Download}"
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[height=0.6\textheight]{assets/pictures/just-download.png}
+  			\caption{Donationssiden for Arduino, blot vælg "\tthigh{Just Download}" for at downloade uden at donere}
+  			\label{fig:just-download}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup Arduino IDE}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[height=0.6\textheight,keepaspectratio=true]{assets/pictures/install-all.png}
+  			\caption{Installationsdialog på Windows. Alle bokse skal mærkes med ✔️}
+  			\label{fig:install-all}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Ved installation, tilvælg og sig "\tthigh{Yes}" til alle drivers der installeres
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup Arduino IDE}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Ved installation, tilvælg og sig "\tthigh{Yes}" til alle drivers der installeres
+				\item Efter installation åbn \tthigh{Arduino IDE} - hvis vinduet åbner, er installationen lykkedes!
+				\item Bemærk knapperne i toppen. De væsentligste:
+				\begin{itemize}
+					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-verify.svg} Verify
+					\begin{itemize}
+						\item Kompilerer koden, og outputter evt. fejl nederst i vinduet
+					\end{itemize}
+					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-upload.svg} Upload
+					\begin{itemize}
+						\item Kompilerer koden, og uploader den til det tilsluttede board
+					\end{itemize}
+					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-serial.svg} Serial Monitor
+					\begin{itemize}
+						\item Åbner et vindue til seriel kommunikation mellem board og computer
+					\end{itemize}
+				\end{itemize}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[height=0.6\textheight,keepaspectratio=true]{assets/pictures/arduino-ide.png}
+  			\caption{Arduino IDE 1.8.19 default sketch ved første opstart}
+  			\label{fig:arduino-ide}
+		\end{figure}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \subsection{Board Definitions}
@@ -178,7 +279,7 @@
 		\begin{figure}
   			\includegraphics[width=\textwidth]{assets/pictures/boardsmanager.png}
   			\caption{Preferences manager i Arduino IDE 1.8.19}
-  			\label{fig:boardmanager}
+  			\label{fig:boardsmanager}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
@@ -192,6 +293,7 @@
 				\begin{itemize}
 					 \item \tiny\url{https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json}
 				\end{itemize}
+				\item \tthigh{OBS}: Tjek og fjern eventuelle spaces i det copy-pastede URL
 			\end{itemize}
 		\end{textBox}
 	\end{column}
@@ -215,7 +317,7 @@
 		\begin{figure}
   			\includegraphics[width=\textwidth]{assets/pictures/boardsmanager2.png}
   			\caption{Boards Manager, her kan board definitions (beskrivelse af hardware og programmeringsværktøjer) hentes fra de kendte board manager URLs i Arduino IDE}
-  			\label{fig:boardmanager2}
+  			\label{fig:boardsmanager2}
 		\end{figure}
 	\end{column}
 \end{columns}
@@ -226,15 +328,8 @@
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-			\begin{columns}
-				\begin{column}{0.5\textwidth}
-  					\includegraphics[width=\textwidth]{assets/pictures/libraries-and-tools-extract.png}
-  				\end{column}
-  				\begin{column}{0.5\textwidth}
-  					\includegraphics[width=\textwidth]{assets/pictures/copy-to-arduino.png}
-  				\end{column}
-  			\end{columns}
-  			\caption{Arkivet indeholder to mapper, "\tthigh{libraries}" og "\tthigh{tools}" som Arduino bruger til at holde software libraries og værktøjer til IDE'et i sin default mappe under "\tthigh{Documents}/ \tthigh{Arduino}"}
+  			\includegraphics[width=\textwidth]{assets/pictures/extract-to-arduino.png}
+  			\caption{Arkivet indeholder to mapper, "\tthigh{libraries}" og "\tthigh{tools}" som Arduino bruger til at holde hhv. libraries og værktøjer til IDE'et i sin default mappe under "\tthigh{Documents}/ \tthigh{Arduino}"}
   			\label{fig:libraries-and-tools}
 		\end{figure}
 	\end{column}
@@ -246,25 +341,28 @@
 					\item \tiny\url{https://raw.githubusercontent.com/iakop/IoT-Crashcourse/master/extra/libraries-and-tools.zip}
 				\end{itemize}
 				\item Udpak indholdet i din PC's "\tthigh{Documents}/ \tthigh{Arduino}" folder
+				\item Den skulle nu indeholde en mappe ved navn "\tthigh{libraries}" og en ved navn "\tthigh{tools}"
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 \end{columns}
 \end{frame}
 
+
 \begin{frame}{Libraries og Tools}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item For at tjekke at om de rette libraries er installeret, åbn "\tthigh{Tools} > \tthigh{Manage Libraries...}"
-				\item Klik i drop-down menuen i øverste venstre hjørne på "\tthigh{Installed}"
-				\item Kig her efter at pakkerne er installeret:
+				\item For at tjekke at de nødvendige libraries er installeret, åbn "\tthigh{Tools} > \tthigh{Manage Libraries...}"
+				\item Installerede libraries kan tjekkes i øverste venstre hjørne under "\tthigh{Type}": "\tthigh{Installed}"
+				\item Disse libraries bør nu alle være tilstede:
 				\begin{itemize}
 					\item \tthigh{ArduinoJson}
-					\item \tthigh{DHT}
-					\item \tthigh{ESPAsyncTCP}
-					\item \tthigh{ESPAsyncWebSrv}
+					\item \tthigh{AsyncTCP}
+					\item \tthigh{Adafruit Unified Sensor}
+					\item \tthigh{DHT sensor library}
+					\item \tthigh{ESPAsyncWebServer}
 					\item \tthigh{MQTT}
 				\end{itemize}
 			\end{itemize}
@@ -273,7 +371,7 @@
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
   			\includegraphics[width=\textwidth]{assets/pictures/librarymanager-installed.png}
-  			\caption{"\tthigh{Library Manager}" kan bruges til at se de installerede libraries eller installere nye libraries der understøttes af Arduino platformen}
+  			\caption{"\tthigh{Library Manager}" kan bruges til at installere nye libraries der understøttes af Arduino platformen. Den kan også bruges til at se de installerede libraries eller opdatere dem}
   			\label{fig:librarymanager-installed}
   		\end{figure}
 	\end{column}

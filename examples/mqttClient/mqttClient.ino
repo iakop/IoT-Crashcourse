@@ -3,7 +3,7 @@
 #include <ESPmDNS.h> // mDNS, to be visible under friendly name
 #include <DHT.h> // DHT sensor library to read values
 #include <MQTT.h> // MQTT client library
-#include <LittleFS.h> // File system to load SSL certificate
+#include <SPIFFS.h> // File system to load SSL certificate
 
 #define JSON_DOC_SIZE JSON_OBJECT_SIZE(8) // Max number of objects in JSON doc
 
@@ -45,11 +45,11 @@ void setup() {
 	// Begin DHT:
 	myDHT.begin();
 
-	// Mount the LittleFS file system:
-	LittleFS.begin();
+	// Mount the SPIFFS file system:
+	SPIFFS.begin();
 
 	// Load rootCA:
-	File rootCA = LittleFS.open("/rootCA.pem");
+	File rootCA = SPIFFS.open("rootCA.pem");
 	String rootCAStr = rootCA.readString();
 	rootCA.close();
 	wifiSecure.setCACert(rootCAStr.c_str());

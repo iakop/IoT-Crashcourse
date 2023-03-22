@@ -36,6 +36,7 @@
 \definecolor{fgcolor}{HTML}{666666}
 \definecolor{bgcolor}{HTML}{1a1a1a}
 \definecolor{textcolor}{HTML}{FFFFFF}
+\definecolor{warncolor}{HTML}{FF0000}
 
 %% Fonts
 \newfontfamily\codefont[NFSSFamily=myverbatimfont]{DejaVu Sans Mono}
@@ -277,4 +278,7 @@
 
 \newcommand\tthigh[1]{%
 	{\texttt{\color{arduinoBlue}#1}}
+}
+\newcommand\ttwarn[1]{%
+	{\texttt{\color{warncolor}#1}}
 }
