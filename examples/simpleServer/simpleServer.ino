@@ -1,12 +1,12 @@
 #include <WiFi.h> // WiFi functions
 #include <WiFiClient.h> // WiFi Client functions
-#include <ESPAsyncWebSrv.h> // Async Webserver
+#include <ESPAsyncWebServer.h> // Async Webserver
 #include <ESPmDNS.h> // mDNS, to be visible under friendly name
-#include <LittleFS.h> // File system to load webpage from
+#include <SPIFFS.h> // File system to load webpage from
 
 // Enter WiFi credentials (SSID, password):
-const char* ssid = "workshop";
-const char* password = "password";
+const char* ssid = "IDA-Public";
+const char* password = "";
 
 // Declare a webserver listening on port 80:
 const char* hostname = "simpleServer";
@@ -38,22 +38,22 @@ void setup() {
 	pinMode(ledPin, OUTPUT);
 	digitalWrite(ledPin, ledState);
 
-	// Mount the LittleFS file system:
-	LittleFS.begin();
+	// Mount the SPIFFS file system:
+	SPIFFS.begin();
 
 	// Define Server responses:
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(LittleFS, "/simpleServer.html", "text/html", false, preprocessor);
+		request->send(SPIFFS, "simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(LittleFS, "/style.css", "text/css");
+		request->send(SPIFFS, "style.css", "text/css");
 	});
 
 	server.on("/setled", HTTP_POST, [](AsyncWebServerRequest *request){
 		ledState = request->getParam("state", true)->value().toInt();
 		digitalWrite(ledPin, ledState);
-		request->send(LittleFS, "/simpleServer.html", "text/html", false, preprocessor);
+		request->send(SPIFFS, "simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	// Start server:
