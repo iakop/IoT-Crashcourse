@@ -54,7 +54,7 @@ void setup() {
 	SPIFFS.begin();
 
 	// Serve all statically from "/", default to "/websocketWebserver.html":
-	server.serveStatic("/", SPIFFS, "/").setDefaultFile("websocketServer.html");
+	server.serveStatic("/", SPIFFS, "/").setDefaultFile("/websocketServer.html");
 
 	// Register websocket events and handler:
 	ws.onEvent(onWsEvent);
