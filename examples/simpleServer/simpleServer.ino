@@ -43,17 +43,17 @@ void setup() {
 
 	// Define Server responses:
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(SPIFFS, "simpleServer.html", "text/html", false, preprocessor);
+		request->send(SPIFFS, "/simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(SPIFFS, "style.css", "text/css");
+		request->send(SPIFFS, "/style.css", "text/css");
 	});
 
 	server.on("/setled", HTTP_POST, [](AsyncWebServerRequest *request){
 		ledState = request->getParam("state", true)->value().toInt();
 		digitalWrite(ledPin, ledState);
-		request->send(SPIFFS, "simpleServer.html", "text/html", false, preprocessor);
+		request->send(SPIFFS, "/simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	// Start server:
