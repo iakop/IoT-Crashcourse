@@ -354,17 +354,16 @@
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item For at tjekke at de nødvendige libraries er installeret, åbn "\tthigh{Tools} > \tthigh{Manage Libraries...}"
+				\item For at tjekke at de nødvendige libraries er installeret, genstart Arduino IDE, åbn "\tthigh{Tools} > \tthigh{Manage Libraries...}"
 				\item Installerede libraries kan tjekkes i øverste venstre hjørne under "\tthigh{Type}": "\tthigh{Installed}"
 				\item Disse libraries bør nu alle være tilstede:
 				\begin{itemize}
 					\item \tthigh{ArduinoJson}
-					\item \tthigh{AsyncTCP}
 					\item \tthigh{Adafruit Unified Sensor}
 					\item \tthigh{DHT sensor library}
-					\item \tthigh{ESPAsyncWebServer}
 					\item \tthigh{MQTT}
 				\end{itemize}
+				\item \tthigh{ESPAsyncWebServer} og \tthigh{AsyncTCP} er ikke tracket af Arduino IDE, men ligger i "\tthigh{libraries}" mappen
 			\end{itemize}
 		\end{textBox}
 	\end{column}
@@ -597,7 +596,6 @@
 				\item En LED
 				\item En 220{\textsf{$\Omega$}} modstand
 				\item Et DHT11 temperatur-/fugtighedssensor modul
-				\item Kildefiler kan hentes på:
 			\end{itemize}
 			\item Der skal tilføjes Javascript og WebSocket forbindelse, som vi gennemgår i fællesskab
 			\item Kildefiler kan hentes på:
@@ -635,7 +633,6 @@
 				\item En LED
 				\item En 220{\textsf{$\Omega$}} modstand
 				\item Et DHT11 temperatur-/fugtighedssensor modul
-				\item Kildefiler kan hentes på:
 			\end{itemize}
 			\item Al server kode skiftes ud med client kode, som forbinder via SSL til en hosted MQTT broker
 			\item Kildefiler kan hentes på:
@@ -652,6 +649,43 @@
   			\caption{Breadboard setup med ESP32, LED og DHT11 sensor}
   			\label{fig:esp32-led-dht11-2}
 		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{MQTT Client}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+		\centering
+		\begin{figure}
+  			\includegraphics[width=\textwidth]{assets/pictures/mqtt-explorer.png}
+  			\caption{MQTT Explorer Connection dialogvindue, her med forbindelsen til \tthigh{mqtt.bechmann.xyz} defineret}
+  			\label{fig:mqtt-explorer}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.4\textwidth}
+		\begin{textBox}
+		\begin{itemize}
+			\item MQTT Explorer kan bruges til at tjekke topics:
+			\begin{itemize}
+				\item \small\url{http://mqtt-explorer.com/}
+			\end{itemize}
+			\item Indstillinger for forbindelse til workshoppens \ttwarn{offentlige} server:
+			\begin{itemize}
+				\item Name: \tthigh{Bechmann} (Valgfri)	
+				\item Validate certificate:	 \tthigh{off} 
+				\begin{itemize}
+					\item \ttlow{Bug i MQTT Explorers cert storage forhindrer validering}
+				\end{itemize}
+				\item Encryption (tls):	 \tthigh{on} 
+				\item Protocol: \tthigh{mqtt://}
+				\item Host: \tthigh{mqtt.bechmann.xyz}
+				\item Port: \tthigh{8883}
+				\item Username: \ttlow{blank}
+				\item Password: \ttlow{blank}
+			\end{itemize}
+		\end{itemize}
+		\end{textBox}
 	\end{column}
 \end{columns}
 \end{frame}
