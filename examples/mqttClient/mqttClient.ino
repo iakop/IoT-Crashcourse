@@ -8,8 +8,8 @@
 #define JSON_DOC_SIZE JSON_OBJECT_SIZE(8) // Max number of objects in JSON doc
 
 // Enter WiFi credentials (SSID, password):
-const char* ssid = "IDA-Public";
-const char* password = "";
+const char* ssid = "workshop";
+const char* password = "password";
 
 // Define client connections for MQTT:
 WiFiClientSecure wifiSecure;
@@ -60,12 +60,12 @@ void setup() {
 
 	Serial.print("MQTT Connect");
 	// Connect to MQTT server:
-	while(!mqtt.connect("JacobsESP", "public", "public")) {
+	while(!mqtt.connect("ESP32", "public", "public")) {
 		delay(500);
 		Serial.print(".");
 	}
 
-	mqtt.subscribe("JacobsESP/led/set/level");
+	mqtt.subscribe("ESP32/led/set/level");
 }
 
 void loop() {
@@ -86,10 +86,10 @@ void loop() {
 			hum = myDHT.readHumidity();
 		}while(isnan(temp) or isnan(hum));
 
-		Serial.println("Sending: JacobsESP/dht/temp: " + String(temp));
-		mqtt.publish("JacobsESP/dht/temp", String(temp));
-		Serial.println("Sending: JacobsESP/dht/hum: " + String(hum));
-		mqtt.publish("JacobsESP/dht/hum", String(hum));
+		Serial.println("Sending: ESP32/dht/temp: " + String(temp));
+		mqtt.publish("ESP32/dht/temp", String(temp));
+		Serial.println("Sending: ESP32/dht/hum: " + String(hum));
+		mqtt.publish("ESP32/dht/hum", String(hum));
 	}
 
 	// Delay to give background processes (WiFi handling etc.) more processing time.
@@ -98,7 +98,7 @@ void loop() {
 
 void msgRecv(String &topic, String &payload) {
 	Serial.println("Received: " + topic + ": " + payload);
-	if(topic == "JacobsESP/led/set/level"){
+	if(topic == "ESP32/led/set/level"){
 		analogWrite(ledPin, payload.toInt());
 	}
 }
