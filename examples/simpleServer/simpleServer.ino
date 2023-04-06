@@ -5,8 +5,8 @@
 #include <SPIFFS.h> // File system to load webpage from
 
 // Enter WiFi credentials (SSID, password):
-const char* ssid = "IDA-Public";
-const char* password = "";
+const char* ssid = "workshop";
+const char* password = "password";
 
 // Declare a webserver listening on port 80:
 const char* hostname = "simpleServer";
