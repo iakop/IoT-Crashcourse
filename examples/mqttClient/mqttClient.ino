@@ -5,8 +5,6 @@
 #include <MQTT.h> // MQTT client library
 #include <SPIFFS.h> // File system to load SSL certificate
 
-#define JSON_DOC_SIZE JSON_OBJECT_SIZE(8) // Max number of objects in JSON doc
-
 // Enter WiFi credentials (SSID, password):
 const char* ssid = "workshop";
 const char* password = "password";
@@ -49,7 +47,7 @@ void setup() {
 	SPIFFS.begin();
 
 	// Load rootCA:
-	File rootCA = SPIFFS.open("/rootCA.pem");
+	File rootCA = SPIFFS.open("rootCA.pem");
 	String rootCAStr = rootCA.readString();
 	rootCA.close();
 	wifiSecure.setCACert(rootCAStr.c_str());
