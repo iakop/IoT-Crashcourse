@@ -8,8 +8,8 @@
 #define JSON_DOC_SIZE JSON_OBJECT_SIZE(8) // Max number of objects in JSON doc
 
 // Enter WiFi credentials (SSID, password):
-const char* ssid = "workshop";
-const char* password = "password";
+const char* ssid = "IDA-Public";
+const char* password = "";
 
 // Define client connections for MQTT:
 WiFiClientSecure wifiSecure;
@@ -49,7 +49,7 @@ void setup() {
 	SPIFFS.begin();
 
 	// Load rootCA:
-	File rootCA = SPIFFS.open("rootCA.pem");
+	File rootCA = SPIFFS.open("/rootCA.pem");
 	String rootCAStr = rootCA.readString();
 	rootCA.close();
 	wifiSecure.setCACert(rootCAStr.c_str());
@@ -58,13 +58,14 @@ void setup() {
 	mqtt.begin("mqtt.bechmann.xyz", 8883, wifiSecure);
 	mqtt.onMessage(msgRecv);
 
+	Serial.print("MQTT Connect");
 	// Connect to MQTT server:
-	while(!mqtt.connect("esp32", "public", "public")) {
+	while(!mqtt.connect("JacobsESP", "public", "public")) {
 		delay(500);
 		Serial.print(".");
 	}
 
-	mqtt.subscribe("esp32/led/set/level");
+	mqtt.subscribe("JacobsESP/led/set/level");
 }
 
 void loop() {
@@ -85,10 +86,10 @@ void loop() {
 			hum = myDHT.readHumidity();
 		}while(isnan(temp) or isnan(hum));
 
-		Serial.println("Sending: esp32/dht/temp: " + String(temp));
-		mqtt.publish("esp32/dht/temp", String(temp));
-		Serial.println("Sending: esp32/dht/hum: " + String(hum));
-		mqtt.publish("esp32/dht/hum", String(hum));
+		Serial.println("Sending: JacobsESP/dht/temp: " + String(temp));
+		mqtt.publish("JacobsESP/dht/temp", String(temp));
+		Serial.println("Sending: JacobsESP/dht/hum: " + String(hum));
+		mqtt.publish("JacobsESP/dht/hum", String(hum));
 	}
 
 	// Delay to give background processes (WiFi handling etc.) more processing time.
@@ -97,7 +98,7 @@ void loop() {
 
 void msgRecv(String &topic, String &payload) {
 	Serial.println("Received: " + topic + ": " + payload);
-	if(topic == "esp32/led/set/level"){
+	if(topic == "JacobsESP/led/set/level"){
 		analogWrite(ledPin, payload.toInt());
 	}
 }
