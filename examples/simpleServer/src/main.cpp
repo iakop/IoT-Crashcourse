@@ -1,8 +1,9 @@
+#include <Arduino.h>
 #include <WiFi.h> // WiFi functions
 #include <WiFiClient.h> // WiFi Client functions
 #include <ESPAsyncWebServer.h> // Async Webserver
 #include <ESPmDNS.h> // mDNS, to be visible under friendly name
-#include <SPIFFS.h> // File system to load webpage from
+#include <LittleFS.h> // File system to load webpage from
 
 // Enter WiFi credentials (SSID, password):
 const char* ssid = "workshop";
@@ -15,6 +16,9 @@ AsyncWebServer server(80);
 // LED we control is on pin 25:
 const int ledPin = 25;
 bool ledState = 0;
+
+// Preprocessor function prototype:
+String preprocessor(const String& var);
 
 void setup() {
 	// Start Serial interface at 115200 baud:
@@ -39,21 +43,21 @@ void setup() {
 	digitalWrite(ledPin, ledState);
 
 	// Mount the SPIFFS file system:
-	SPIFFS.begin();
+	LittleFS.begin();
 
 	// Define Server responses:
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(SPIFFS, "/simpleServer.html", "text/html", false, preprocessor);
+		request->send(LittleFS, "/simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
-		request->send(SPIFFS, "/style.css", "text/css");
+		request->send(LittleFS, "/style.css", "text/css");
 	});
 
 	server.on("/setled", HTTP_POST, [](AsyncWebServerRequest *request){
 		ledState = request->getParam("state", true)->value().toInt();
 		digitalWrite(ledPin, ledState);
-		request->send(SPIFFS, "/simpleServer.html", "text/html", false, preprocessor);
+		request->send(LittleFS, "/simpleServer.html", "text/html", false, preprocessor);
 	});
 	
 	// Start server:

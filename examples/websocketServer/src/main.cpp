@@ -1,9 +1,10 @@
+#include <Arduino.h>
 #include <WiFi.h> // WiFi functions
 #include <WiFiClient.h> // WiFi Client functions
 #include <ESPAsyncWebServer.h> // Async Web Server
 #include <ArduinoJson.h> // Transmit JSON over websocket
 #include <ESPmDNS.h> // mDNS, to be visible under friendly name
-#include <SPIFFS.h> // File system to load webpage from
+#include <LittleFS.h> // File system to load webpage from
 #include <DHT.h> // DHT sensor library to read values
 
 #define JSON_DOC_SIZE JSON_OBJECT_SIZE(8) // Max number of objects in JSON doc
@@ -24,6 +25,9 @@ int ledLevel = 0;
 // DHT11 we control is on pin 26:
 DHT myDHT(26, DHT11);
 long dhtReadTime = 0;
+
+// Websocket event handler prototype:
+void onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
 
 void setup() {
 	// Start Serial interface at 115200 baud:
@@ -51,10 +55,10 @@ void setup() {
 	myDHT.begin();
 
 	// Mount the SPIFFS file system:
-	SPIFFS.begin();
+	LittleFS.begin();
 
 	// Serve all statically from "/", default to "/websocketWebserver.html":
-	server.serveStatic("/", SPIFFS, "/").setDefaultFile("websocketServer.html");
+	server.serveStatic("/", LittleFS, "/").setDefaultFile("/websocketServer.html");
 
 	// Register websocket events and handler:
 	ws.onEvent(onWsEvent);

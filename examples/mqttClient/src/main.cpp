@@ -1,9 +1,9 @@
+#include <Arduino.h>
 #include <WiFi.h> // WiFi functions
 #include <WiFiClientSecure.h> // WiFi Client functions encrypted
-#include <ESPmDNS.h> // mDNS, to be visible under friendly name
 #include <DHT.h> // DHT sensor library to read values
 #include <MQTT.h> // MQTT client library
-#include <SPIFFS.h> // File system to load SSL certificate
+#include <LittleFS.h> // File system to load SSL certificate
 
 // Enter WiFi credentials (SSID, password):
 const char* ssid = "workshop";
@@ -13,6 +13,11 @@ const char* password = "password";
 WiFiClientSecure wifiSecure;
 MQTTClient mqtt;
 
+// MQTT credentials for our client:
+const char* mqttClientId = "ESP32";
+const char* mqttUsername = "public";
+const char* mqttPassword = "public";
+
 // LED we control is on pin 25:
 const int ledPin = 25;
 int ledLevel = 0;
@@ -20,6 +25,9 @@ int ledLevel = 0;
 // DHT11 we control is on pin 26:
 DHT myDHT(26, DHT11);
 long dhtReadTime = 0;
+
+// msgRecv callback function prototype:
+void msgRecv(String &topic, String &payload);
 
 void setup() {
 	// Start Serial interface at 115200 baud:
@@ -44,10 +52,10 @@ void setup() {
 	myDHT.begin();
 
 	// Mount the SPIFFS file system:
-	SPIFFS.begin();
+	LittleFS.begin();
 
 	// Load rootCA:
-	File rootCA = SPIFFS.open("rootCA.pem");
+	File rootCA = LittleFS.open("/rootCA.pem");
 	String rootCAStr = rootCA.readString();
 	rootCA.close();
 	wifiSecure.setCACert(rootCAStr.c_str());
@@ -58,12 +66,12 @@ void setup() {
 
 	Serial.print("MQTT Connect");
 	// Connect to MQTT server:
-	while(!mqtt.connect("ESP32", "public", "public")) {
+	while(!mqtt.connect(mqttClientId, mqttUsername, mqttPassword)) {
 		delay(500);
 		Serial.print(".");
 	}
 
-	mqtt.subscribe("ESP32/led/set/level");
+	mqtt.subscribe(String(String(mqttClientId) + "/led/set/level"));
 }
 
 void loop() {
@@ -84,19 +92,20 @@ void loop() {
 			hum = myDHT.readHumidity();
 		}while(isnan(temp) or isnan(hum));
 
-		Serial.println("Sending: ESP32/dht/temp: " + String(temp));
-		mqtt.publish("ESP32/dht/temp", String(temp));
-		Serial.println("Sending: ESP32/dht/hum: " + String(hum));
-		mqtt.publish("ESP32/dht/hum", String(hum));
+		Serial.println("Sending: " + String(mqttClientId) + "/dht/temp: " + String(temp));
+		mqtt.publish(String(mqttClientId) + "/dht/temp", String(temp));
+		Serial.println("Sending: " + String(mqttClientId) + "/dht/hum: " + String(hum));
+		mqtt.publish(String(mqttClientId) + "/dht/hum", String(hum));
 	}
 
 	// Delay to give background processes (WiFi handling etc.) more processing time.
 	delay(2);
 }
 
+// msgRecv filters the incoming messages for interesting stuff, and then performs the relevant action:
 void msgRecv(String &topic, String &payload) {
 	Serial.println("Received: " + topic + ": " + payload);
-	if(topic == "ESP32/led/set/level"){
+	if(topic == String(String(mqttClientId) + "/led/set/level")){
 		analogWrite(ledPin, payload.toInt());
 	}
 }

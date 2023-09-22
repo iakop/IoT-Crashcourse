@@ -123,19 +123,13 @@
 			\begin{itemize}
 				\item Præsentation og kode til denne workshop
 			\end{itemize}
-			\item \url{https://www.arduino.cc/en/software\#legacy-ide-18x}
+			\item \url{https://code.visualstudio.com/}
 			\begin{itemize}
-				\item Download af Arduino IDE \tthigh{1.8.X}
-				\begin{itemize}
-					\item \ttwarn{IKKE 2.X.X}
-				\end{itemize}
-				\item Windows version at downloade: \tthigh{Win 7 or newer} 
-				\begin{itemize}
-					\item \ttwarn{IKKE Windows app Win 8.1 or 10}
-					\item Dvs. \ttwarn{undgå} dette logo: (\includegraphics[height=8pt, keepaspectratio=true]{assets/pictures/windows-get.png})
-				\end{itemize}
-				\item Mac OS X version at downloade: \tthigh{10.10 or newer} 
-				\item Linux version at downloade: \tthigh{64 bits/Det ved du selv}\color{arduinoBlue}😜%\emojifont{😜}
+				\item Download af Visual Studio Code
+			\end{itemize}
+			\item \url{https://platformio.org/}
+			\begin{itemize}
+				\item Download af PlatformIO
 			\end{itemize}
 			\item \url{https://www.arduino.cc/en/reference}
 			\begin{itemize}
@@ -153,245 +147,357 @@
 	\end{textBox}
 \end{frame}
 
-\section{Setup af ESP32 på Arduino IDE}
+\section{Setup af VSCode og PlatformIO}
 \begin{frame}
-	\sectiontitle{assets/pictures/arduino-ide.png}{\insertsectionhead}
+	\sectiontitle{assets/pictures/vscode-logo.png}{\insertsectionhead}
 \end{frame}
 
-\subsection{Setup Arduino IDE}
-\begin{frame}{Setup Arduino IDE}
+\subsection{Setup VSCode}
+\begin{frame}{Setup VSCode}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/arduino-versions.png}
-  			\caption{\tthigh{Arduino Legacy IDE (1.8.X)}, versionen der bliver benyttet i denne workshop. Versionerne highlighted er de understøttede versioner}
-  			\label{fig:arduino-versions}
+  			\roundedGfx{\textwidth}{assets/pictures/vscode-dl.png}
+  			\caption{\tthigh{Visual Studio Code} downloadsiden har versioner til mange forskellige arkitekturer, typisk vil default knappen hente den korrekte installer}
+  			\label{fig:vscode-dl}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item Download Arduino IDE \tthigh{1.8.X} fra linket:
+				\item Download Visual Studio Code fra linket:
 				\begin{itemize}
-					 \item \small\url{https://www.arduino.cc/en/software\#legacy-ide-18x}
+					 \item \small\url{https://code.visualstudio.com/Download}
 				\end{itemize}
+				\item \tthigh{Tryk på den store knap for dit OS}
+				\item Kør installationsprocessen, dette skulle ske uden stort besvær
+				\item \ttwarn{HVIS} det ikke virker, prøv en af disse:
 				\begin{itemize}
-					\item \ttwarn{IKKE 2.X.X}
 					\item Windows:
 					\begin{itemize}
-						\item  \tthigh{Win 7 or newer} 
-						\item \ttwarn{IKKE Windows app Win 8.1 or 10}
-						\item Dvs. \ttwarn{undgå} dette logo: (\includegraphics[height=8pt, keepaspectratio=true]{assets/pictures/windows-get.png})
-					\end{itemize}
-					\item Mac OS X:
-					\begin{itemize}
-						\item \tthigh{10.10 or newer}
+						\item Hvis du ikke har admin-rettigheder, prøv at hente \tthigh{User Installer} (typisk x64-versionen)
 					\end{itemize}
 					\item Linux:
 					\begin{itemize}
-						\item \tthigh{64 bits/Det ved du selv}\color{arduinoBlue}😜%\emojifont{😜}
+						\item Hvis du ikke bruger Ubuntu, tjek din package managers repositorier, eller prøv \tthigh{CLI} installeren
 					\end{itemize}
-				\end{itemize}
-			\end{itemize}
-		\end{textBox}
-	\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Setup Arduino IDE}
-\begin{columns}
-	\begin{column}{0.5\textwidth}
-		\begin{textBox}
-			\begin{itemize}
-				\item Der vil komme en donationsside
-				\item Bare vælg "\tthigh{Just Download}"
-			\end{itemize}
-		\end{textBox}
-	\end{column}
-	\begin{column}{0.5\textwidth}
-		\begin{figure}
-  			\includegraphics[height=0.6\textheight]{assets/pictures/just-download.png}
-  			\caption{Donationssiden for Arduino, blot vælg "\tthigh{Just Download}" for at downloade uden at donere}
-  			\label{fig:just-download}
-		\end{figure}
-	\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Setup Arduino IDE}
-\begin{columns}
-	\begin{column}{0.5\textwidth}
-		\begin{figure}
-  			\includegraphics[height=0.6\textheight,keepaspectratio=true]{assets/pictures/install-all.png}
-  			\caption{Installationsdialog på Windows. Alle bokse skal mærkes med ✔️}
-  			\label{fig:install-all}
-		\end{figure}
-	\end{column}
-	\begin{column}{0.5\textwidth}
-		\begin{textBox}
-			\begin{itemize}
-				\item Ved installation, tilvælg og sig "\tthigh{Yes}" til alle drivers der installeres
-			\end{itemize}
-		\end{textBox}
-	\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Setup Arduino IDE}
-\begin{columns}
-	\begin{column}{0.5\textwidth}
-		\begin{textBox}
-			\begin{itemize}
-				\item Ved installation, tilvælg og sig "\tthigh{Yes}" til alle drivers der installeres
-				\item Efter installation åbn \tthigh{Arduino IDE} - hvis vinduet åbner, er installationen lykkedes!
-				\item Bemærk knapperne i toppen. De væsentligste:
-				\begin{itemize}
-					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-verify.svg} Verify
+					\item Mac OS X:
 					\begin{itemize}
-						\item Kompilerer koden, og outputter evt. fejl nederst i vinduet
+						\item Prøv \tthigh{Universal .zip}, eller måske App Store?  \includegraphics[height=12pt, keepaspectratio=true]{assets/pictures/shrug.png}
 					\end{itemize}
-					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-upload.svg} Upload
+				\end{itemize}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{Setup PlatformIO}
+\begin{frame}{Setup PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Når VSCode er installeret og startet op, navigér til \tthigh{Extensions} fanen
+				\begin{itemize}
+					\item Her, søg efter PlatformIO
+					\item Vælg extensionen på figuren, og tryk \tthigh{install}
+					\item VSCode installerer og indstiller automatisk PlatformIO
+				\end{itemize}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\roundedGfx{0.75\textwidth}{assets/pictures/pio-dl.png}
+  			\caption{Installion af \tthigh{PlatformIO} i VSCode}
+  			\label{fig:pio-dl}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-menu.png}
+  			\caption{PlatformIO standard view, med \tthigh{Home}, \tthigh{Projects} og \tthigh{Libraries}, samt Quick Access}
+  			\label{fig:pio-menu}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item PlatformIO extensionen kan åbnes ved at klikke på fanen PlatformIO \includesvg[height=12pt, keepaspectratio=true]{assets/svg/pio-logo.svg}
+				\item Herunder findes en række muligheder, de vigtigste:
+				\begin{enumerate}
+					\item Open / Home
 					\begin{itemize}
-						\item Kompilerer koden, og uploader den til det tilsluttede board
+						\item Hovedsiden til PlatformIO, med quick access og faner til resten af funktionerne
 					\end{itemize}
-					\item \includesvg[height=12pt, keepaspectratio=true]{assets/svg/ide-serial.svg} Serial Monitor
+					\item Projects \& Configuration \\/ Projects
 					\begin{itemize}
-						\item Åbner et vindue til seriel kommunikation mellem board og computer
+						\item Projektside, til at oprette og indstille softwareprojekter
+					\end{itemize}
+					\item Libraries
+					\begin{itemize}
+						\item Til søgning og tilføjelse af Libraries til PlatformIO projekter
+					\end{itemize}
+				\end{enumerate}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\section{Setup af ESP32 projekt i PlatformIO}
+\begin{frame}
+	\sectiontitle{assets/svg/pio-logo.svg}{\insertsectionhead}
+\end{frame}
+
+\begin{frame}{Setup af ESP32 projekt i PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Klik på fanen \tthigh{Projects} for at få visningen af projekter frem
+				\item For at skabe et nyt projekt, klik på \tthigh{Create New Project}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-project.png}
+  			\caption{\tthigh{Projects} fanen i PlatformIO. Her kan projekter oprettes og redigeres i GUI'en}
+  			\label{fig:pio-project}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup af ESP32 projekt i PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[height=0.7\textheight,keepaspectratio=true]{assets/pictures/pio-project-2.png}
+  			\caption{\tthigh{Project Wizard} dialogen i PlatformIO, med indstillinger for navn, board og framework}
+  			\label{fig:pio-project2}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Der vil komme en \tthigh{Project Wizard} dialog
+				\item Den har 3 felter, som i vores tilfælde udfyldes således:
+				\begin{itemize}
+					\item Name
+					\begin{itemize}
+						\item Et passende navn til projektet, eks. "\tthigh{coolnewproject}"
+					\end{itemize}
+					\item Board
+					\begin{itemize}
+						\item hhv. \tthigh{DOIT ESP32 DEVKIT V1} eller \tthigh{Ai Thinker ESP32-CAM}
+					\end{itemize}
+					\item Framework
+					\begin{itemize}
+						\item \tthigh{Arduino}
 					\end{itemize}
 				\end{itemize}
+				\item Afslut ved at trykke \tthigh{Finish}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Setup af ESP32 projekt i PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item PlatformIO vil generere et projekt og automatisk sætte værktøjerne op
+				\begin{itemize}
+					\item Dette kræver en internetforbindelse
+				\end{itemize}
+				\item Når det er færdigt, indlæses \tthigh{platformio.ini}
+				\begin{itemize}
+					\item Denne fil indeholder indstillingerne for projektet og kan redigeres i hånden
+				\end{itemize}
+				\item På siden ses nogle \tthigh{Project Tasks}:
+				\begin{enumerate}
+					\item Build
+					\begin{itemize}
+						\item Bygger et image til at programmere hardwaren med
+					\end{itemize}
+					\item Upload
+					\begin{itemize}
+						\item Uploader imaget til hardwaren gennem en automatisk detekteret USB/UART forbindelse
+					\end{itemize}
+					\item Monitor
+					\begin{itemize}
+						\item Overvåger UART forbindelsen til hardwaren (Baud raten kan indstilles i \tthigh{platformio.ini})
+					\end{itemize}
+					\item Build Filesystem Image
+					\begin{itemize}
+						\item Bygger image af et filsystem til hardwaren (ligger i \tthigh{data} mappen under projektet)
+						\item \tthigh{data} mappen skal oprettes manuelt
+						\item Filsystemet kan specificeres i \tthigh{platformio.ini}
+					\end{itemize}
+					\item Upload Filesystem Image
+					\begin{itemize}
+						\item Uploader det byggede filsystem til boardet
+						\item \ttwarn{VIGTIGT}: Monitor kan ikke være aktivt under upload
+					\end{itemize}
+				\end{enumerate}
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[height=0.6\textheight,keepaspectratio=true]{assets/pictures/arduino-ide.png}
-  			\caption{Arduino IDE 1.8.19 default sketch ved første opstart}
-  			\label{fig:arduino-ide}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-project-3.png}
+  			\caption{Åbent projekt i PlatformIO, viser \tthigh{platformio.ini} samt hvilke \tthigh{Project Tasks} der er mulige for projektet}
+  			\label{fig:pio-project3}
 		\end{figure}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\subsection{Board Definitions}
-\begin{frame}{Board Definitions}
+\subsection{Tilføj libraries til ESP32 projekt}
+\begin{frame}{Tilføj libraries til ESP32 projekt}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[width=\textwidth]{assets/pictures/boardsmanager.png}
-  			\caption{Preferences manager i Arduino IDE 1.8.19}
-  			\label{fig:boardsmanager}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-libraries.png}
+  			\caption{\tthigh{Libraries} fanen i PlatformIO. Her kan libraries søges frem og tilføjes til projekter}
+  			\label{fig:pio-libraries}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item I Arduino IDE:
+				\item For at tilføje eksterne libraries til ens projekt, kan man man under \tthigh{Libraries} fanen søge efter libraries
 				\begin{itemize}
-					 \item "\tthigh{File} > \tthigh{Preferences}"
+					\item De kan fremsøges under \tthigh{Registry}
+					\item Installerede libraries kan vises under \tthigh{Installed}
 				\end{itemize}
-				\item Indsæt URL i "\tthigh{Additional Boards Manager URLs}":
-				\begin{itemize}
-					 \item \tiny\url{https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json}
-				\end{itemize}
-				\item \tthigh{OBS}: Tjek og fjern eventuelle spaces i det copy-pastede URL
+				\item Herefter klik på det relevante library
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Board Definitions}
+\begin{frame}{Tilføj libraries til ESP32 projekt}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item Under "\tthigh{Tools} > \tthigh{Board} > \tthigh{Boards Manager}"
-				\item Søg efter "\tthigh{ESP32}" og tryk "\tthigh{Install}" ud fra den seneste version
+				\item Inde under det pågældende library kan der findes:
 				\begin{itemize}
-					 \item Der skal hentes omkring 250MB, så det tager lidt tid
+					\item Eksempler
+					\item Headers
+					\item mm.
 				\end{itemize}
+				\item Klik \tthigh{Add to Project} for at tilføje den til et projekt
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[width=\textwidth]{assets/pictures/boardsmanager2.png}
-  			\caption{Boards Manager, her kan board definitions (beskrivelse af hardware og programmeringsværktøjer) hentes fra de kendte board manager URLs i Arduino IDE}
-  			\label{fig:boardsmanager2}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-libraries-2.png}
+  			\caption{\tthigh{DHT sensor library} i PlatformIO. Kan tilføjes til projekter, og understøtter Arduino frameworket}
+  			\label{fig:pio-libraries-2}
 		\end{figure}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\subsection{Libraries og Tools}
-\begin{frame}{Libraries og Tools}
+\begin{frame}{Tilføj libraries til ESP32 projekt}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[width=\textwidth]{assets/pictures/extract-to-arduino.png}
-  			\caption{Arkivet indeholder to mapper, "\tthigh{libraries}" og "\tthigh{tools}" som Arduino bruger til at holde hhv. libraries og værktøjer til IDE'et i sin default mappe under "\tthigh{Documents}/ \tthigh{Arduino}"}
-  			\label{fig:libraries-and-tools}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-libraries-3.png}
+  			\caption{\tthigh{Add project dependency} dialogen i PlatformIO. Har vælges hvilket projekt der skal tilføjes et library}
+  			\label{fig:pio-libraries-3}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item Download arkivet "\tthigh{libraries-and-tools.zip}" fra linket:
-				\begin{itemize}
-					\item \tiny\url{https://raw.githubusercontent.com/iakop/IoT-Crashcourse/master/extra/libraries-and-tools.zip}
-				\end{itemize}
-				\item Udpak indholdet i din PC's "\tthigh{Documents}/ \tthigh{Arduino}" folder
-				\item Den skulle nu indeholde en mappe ved navn "\tthigh{libraries}" og en ved navn "\tthigh{tools}"
+				\item Der åbnes en \tthigh{Add project dependency} dialog
+				\item Vælg under \tthigh{Select a project}, hvilket projekt der skal bruge librariet
+				\item Klik \tthigh{Add}
+				\item PlatformIO tilføjer automatisk en \tthigh{lib\_deps} dependency i \tthigh{platformio.ini}, og sætter librariet op
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 \end{columns}
 \end{frame}
 
+\subsection{Indlæsning af ESP32 Projekt i PlatformIO}
+\begin{frame}{Indlæsning af ESP32 Projekt i PlatformIO}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-import.png}
+  			\caption{\tthigh{Home} fanen i PlatformIO, med markeret indstilling for at indlæse et projekt fra disk}
+  			\label{fig:pio-project4}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{textBox}
+			\begin{itemize}
+				\item Projekterne i denne workshop bruger specifikke libraries og indstillinger
+				\item For at have dem sat op hurtigt, kan hele projekter indlæses fra Github repoet
+				\item Download hele workshoppens materialer her:
+				\begin{itemize}
+					\item \small\url{https://github.com/iakop/IoT-Crashcourse/archive/refs/heads/master.zip}
+				\end{itemize}
+				\item Pak dem ud hvor de kan findes
+				\item Under \tthigh{Home} fanen, klik \tthigh{Open Project}
+			\end{itemize}
+		\end{textBox}
+	\end{column}
+\end{columns}
+\end{frame}
 
-\begin{frame}{Libraries og Tools}
+\begin{frame}{Indlæsning af ESP32 Projekt i PlatformIO}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item For at tjekke at de nødvendige libraries er installeret, genstart Arduino IDE, åbn "\tthigh{Tools} > \tthigh{Manage Libraries...}"
-				\item Installerede libraries kan tjekkes i øverste venstre hjørne under "\tthigh{Type}": "\tthigh{Installed}"
-				\item Disse libraries bør nu alle være tilstede:
-				\begin{itemize}
-					\item \tthigh{ArduinoJson}
-					\item \tthigh{Adafruit Unified Sensor}
-					\item \tthigh{DHT sensor library}
-					\item \tthigh{MQTT}
-				\end{itemize}
-				\item \tthigh{ESPAsyncWebServer} og \tthigh{AsyncTCP} er ikke tracket af Arduino IDE, men ligger i "\tthigh{libraries}" mappen
+				\item I \tthigh{Open PlatformIO Project} dialogen, åbn mappen hvor eksemplerne ligger
+				\item Hvis \tthigh{Open} knappen f.eks. siger \tthigh{Open "simpleServer"} står dialogen det rigtige sted
+				\item Klik \tthigh{Open} knappen
 			\end{itemize}
 		\end{textBox}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
-  			\includegraphics[width=\textwidth]{assets/pictures/librarymanager-installed.png}
-  			\caption{"\tthigh{Library Manager}" kan bruges til at installere nye libraries der understøttes af Arduino platformen. Den kan også bruges til at se de installerede libraries eller opdatere dem}
-  			\label{fig:librarymanager-installed}
-  		\end{figure}
+  			\includegraphics[height=0.7\textheight,keepaspectratio=true]{assets/pictures/pio-project-5.png}
+  			\caption{\tthigh{Open PlatformIO Project} dialogen i PlatformIO. For at åbne et projekt, skal man finde den på disken, og stå i mappen e.g.: \tthigh{Downloads/IoT-Crashcourse-master/examples/simpleServer}}
+  			\label{fig:pio-project5}
+		\end{figure}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Libraries og Tools}
+\begin{frame}{Indlæsning af ESP32 Projekt i PlatformIO}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
-			\begin{figure}
-  					\includegraphics[width=0.5\textwidth]{assets/pictures/sketch-data-and-board.png}
-  					\caption{Værktøjet "\tthigh{ESP32 Sketch Data Upload}" bruges bl.a. til at lægge .html indhold på ESP32's filsystem. Board definitionen "\tthigh{DOIT ESP32 DEVKIT V1}" sikrer, der bliver uploadet kode i det rigtige format}
-  					\label{fig:sketch-data-and-board}
-  			\end{figure}
+		\begin{figure}
+  			\includegraphics[width=\textwidth,keepaspectratio=true]{assets/pictures/pio-projects-6.png}
+  			\caption{Eksempel på et \tthigh{platformio.ini} for et projekt. Bemærk \tthigh{monitor-speed}, \tthigh{filesystem} og \tthigh{lib\_deps} er defineret}
+  			\label{fig:pio-project6}
+		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{textBox}
 			\begin{itemize}
-				\item For at tjekke at om de rette tools, samt Board Definitions er installeret, åbn "\tthigh{Boards}"
-				\item I menuen skal feltet "\tthigh{ESP32 Sketch Data Upload}" være tilgængeligt
-				\item Under feltet "\tthigh{Board:}" skal man kunne vælge "\tthigh{Board} > \tthigh{ESP32 Arduino} > \tthigh{DOIT ESP32 DEVKIT V1}"
+				\item Når projektet er indlæst, åben \tthigh{platformio.ini} for projektet
+				\item Den specificerer alle libraries og komponenter projektet afhænger af
+				\item Værktøjerne og indstillingerne for projektet sættes automatisk op af PlatformIO
 			\end{itemize}
 		\end{textBox}
 	\end{column}
