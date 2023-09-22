@@ -4,5 +4,6 @@ På denne workshop gennemgår vi under et 4 timers intensivt forløb grundprinci
 
 <b>[Eksempelkode](https://github.com/iakop/IoT-Crashcourse/tree/main/examples)</b></br>
 <b>[Slideshow](https://raw.githubusercontent.com/iakop/IoT-Crashcourse/master/latex/build/main.pdf)</b></br>
-<b>[IDE Guide](https://raw.githubusercontent.com/iakop/IoT-Crashcourse/master/latex/build/ide-guide.pdf)</b></br>
 Kontakt-email: <b>(jacob.bp@mvb.net)</b></br>
+
+Forældet - <b>[Arduino IDE Guide](https://raw.githubusercontent.com/iakop/IoT-Crashcourse/master/latex/build/ide-guide.pdf)</b></br>
