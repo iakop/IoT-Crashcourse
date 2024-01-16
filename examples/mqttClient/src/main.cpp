@@ -21,10 +21,15 @@ const char* mqttPassword = "public";
 // LED we control is on pin 25:
 const int ledPin = 25;
 int ledLevel = 0;
+// LED control topic:
+#define LED_SET_LEVEL_TOPIC (String(mqttClientId) + "/led/set/level")
 
 // DHT11 we control is on pin 26:
 DHT myDHT(26, DHT11);
 long dhtReadTime = 0;
+// DHT publishing topics:
+#define DHT_TEMP_TOPIC (String(mqttClientId) + "/dht/temp")
+#define DHT_HUM_TOPIC (String(mqttClientId) + "/dht/hum")
 
 // msgRecv callback function prototype:
 void msgRecv(String &topic, String &payload);
@@ -71,7 +76,7 @@ void setup() {
 		Serial.print(".");
 	}
 
-	mqtt.subscribe(String(String(mqttClientId) + "/led/set/level"));
+	mqtt.subscribe(LED_SET_LEVEL_TOPIC);
 }
 
 void loop() {
@@ -92,10 +97,10 @@ void loop() {
 			hum = myDHT.readHumidity();
 		}while(isnan(temp) or isnan(hum));
 
-		Serial.println("Sending: " + String(mqttClientId) + "/dht/temp: " + String(temp));
-		mqtt.publish(String(mqttClientId) + "/dht/temp", String(temp));
-		Serial.println("Sending: " + String(mqttClientId) + "/dht/hum: " + String(hum));
-		mqtt.publish(String(mqttClientId) + "/dht/hum", String(hum));
+		Serial.println("Sending: " + DHT_TEMP_TOPIC + ": " + String(temp));
+		mqtt.publish(DHT_TEMP_TOPIC, String(temp));
+		Serial.println("Sending: " + DHT_HUM_TOPIC + ": " + String(hum));
+		mqtt.publish(DHT_HUM_TOPIC, String(hum));
 	}
 
 	// Delay to give background processes (WiFi handling etc.) more processing time.
@@ -105,7 +110,7 @@ void loop() {
 // msgRecv filters the incoming messages for interesting stuff, and then performs the relevant action:
 void msgRecv(String &topic, String &payload) {
 	Serial.println("Received: " + topic + ": " + payload);
-	if(topic == String(String(mqttClientId) + "/led/set/level")){
+	if(topic == LED_SET_LEVEL_TOPIC){
 		analogWrite(ledPin, payload.toInt());
 	}
 }
