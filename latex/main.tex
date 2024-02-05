@@ -152,6 +152,43 @@
 	\sectiontitle{assets/pictures/vscode-logo.png}{\insertsectionhead}
 \end{frame}
 
+\subsection{Nødvendig software}
+\begin{frame}{Nødvendig software}
+	\begin{textBox}
+	For at Platformio og VSCode kan køre kræves følgende software afhængigt af platform:
+		\begin{itemize}
+			\item Windows
+			\begin{itemize}
+				\item Du skal så vidt muligt have fulde administratorrettigheder
+				\item Git (Download):
+				\begin{itemize}
+					\item \small\url{https://git-scm.com/download/win} (64-bit Git for Windows Setup, gælder for de fleste)
+				\end{itemize}
+				\item CP210x chip driver til ESP32 boardet:
+				\begin{itemize}
+					\item \small\url{https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads} (CP210x Universal Windows Driver)
+					\item Download, udpak alle, højreklik \tthigh{silabser.inf} filen, klik \tthigh{Install}/\tthigh{Installér}
+				\end{itemize}
+			\end{itemize}
+			\item Linux
+			\begin{itemize}
+				\item Vær sikker på du har din distibutions \tthigh{python 3} og \tthigh{python 3 venv}, e.g.:
+				\begin{itemize}
+					\item Debian/Ubuntu/Mint: \small\tthigh{sudo apt-get install python3 python3-venv}
+					\item Arch/Manjaro: \small\tthigh{sudo pacman -S python python-virtualenv}
+				\end{itemize}
+			\end{itemize}
+			\item Mac OS X
+			\begin{itemize}
+				\item XCode Command Line Tools (guide):
+				\begin{itemize}
+					\item \small\url{https://www.freecodecamp.org/news/install-xcode-command-line-tools/}
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\end{textBox}
+\end{frame}
+
 \subsection{Setup VSCode}
 \begin{frame}{Setup VSCode}
 \begin{columns}
